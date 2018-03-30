@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-3-27 10:18:47 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.company.dao.pojo.Emp" table="t_emp">
+        <id name="empno" type="int">
+            <column name="EMPNO" />
+            <generator class="native" />
+        </id>
+        <property name="ename" type="string">
+            <column name="ENAME" />
+        </property>
+        <property name="sal" type="double">
+            <column name="SAL" />
+        </property>
+        <property name="hiredate" type="date">
+            <column name="HIREDATE" />
+        </property>
+    </class>
+</hibernate-mapping>

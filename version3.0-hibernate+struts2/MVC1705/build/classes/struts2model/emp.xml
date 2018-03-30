@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="emp_model" namespace="/" extends="struts-default">
+		<global-results>
+			<result name="error" type="redirect">/error.jsp</result>
+		</global-results>
+		<action name="emp_find_findAll" class="com.company.action.EmpAction"
+			method="findAll">
+			<result name="success" type="dispatcher">/WEB-INF/views/emp_findAll.jsp
+			</result>
+		</action>
+		<action name="emp_find_findById" class="com.company.action.EmpAction"
+			method="findById">
+			<result name="success" type="dispatcher">/WEB-INF/views/emp_findAll.jsp
+			</result>
+			<result name="update" type="dispatcher">/WEB-INF/views/emp_update.jsp
+			</result>
+		</action>
+		<action name="emp_find_findByName" class="com.company.action.EmpAction"
+			method="findByName">
+			<result name="success" type="dispatcher">/WEB-INF/views/emp_findAll.jsp
+			</result>
+		</action>
+
+		<action name="emp_save" class="com.company.action.EmpAction"
+			method="save">
+			<result name="success" type="redirectAction">emp_find_findAll</result>
+		</action>
+		<action name="emp_delete" class="com.company.action.EmpAction"
+			method="delete">
+			<result name="success" type="redirectAction">emp_find_findAll</result>
+		</action>
+		<action name="emp_update" class="com.company.action.EmpAction"
+			method="update">
+			<result name="success" type="redirectAction">emp_find_findAll</result>
+		</action>
+
+
+	</package>
+
+
+</struts>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

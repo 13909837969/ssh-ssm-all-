@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.dao.mapper.EmpDao">
+	<resultMap id="BaseResultMap" type="com.company.dao.pojo.Emp">
+		<id column="EMPNO" jdbcType="INTEGER" property="empno" />
+		<result column="ENAME" jdbcType="VARCHAR" property="ename" />
+		<result column="SAL" jdbcType="DOUBLE" property="sal" />
+		<result column="HIREDATE" jdbcType="DATE" property="hiredate" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		EMPNO, ENAME, SAL,HIREDATE
+	</sql>
+	
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from a_emp
+		where EMPNO = #{empno,jdbcType=INTEGER}
+	</select>
+	
+	
+	<select id="findByName" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from a_emp
+		where ename like '%${value}%'
+	</select>
+	
+	
+	
+	<select id="findAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from a_emp
+	</select>
+	
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from a_emp
+		where EMPNO = #{empno,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.company.dao.pojo.Emp">
+		insert into a_emp (EMPNO,
+		ENAME, JOB,
+		MGR, HIREDATE, SAL, COMM,
+		DEPTNO)
+		values
+		(#{empno,jdbcType=INTEGER}, #{ename,jdbcType=VARCHAR},
+		#{job,jdbcType=VARCHAR},
+		#{mgr,jdbcType=INTEGER},
+		#{hiredate,jdbcType=DATE}, #{sal,jdbcType=DOUBLE},
+		#{comm,jdbcType=DOUBLE},
+		#{deptno,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.company.dao.pojo.Emp">
+		insert into a_emp
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="empno != null">
+				EMPNO,
+			</if>
+			<if test="ename != null">
+				ENAME,
+			</if>
+			<if test="sal != null">
+				SAL,
+			</if>
+			<if test="hiredate != null">
+				HIREDATE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="empno != null">
+				#{empno,jdbcType=INTEGER},
+			</if>
+			<if test="ename != null">
+				#{ename,jdbcType=VARCHAR},
+			</if>
+			<if test="sal != null">
+				#{sal,jdbcType=DOUBLE},
+			</if>
+			<if test="hiredate != null">
+				#{hiredate,jdbcType=DATE},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.company.dao.pojo.Emp">
+		update a_emp
+		<set>
+			<if test="ename != null">
+				ENAME = #{ename,jdbcType=VARCHAR},
+			</if>
+			<if test="hiredate != null">
+				HIREDATE = #{hiredate,jdbcType=DATE},
+			</if>
+			<if test="sal != null">
+				SAL = #{sal,jdbcType=DOUBLE},
+			</if>
+		</set>
+		where EMPNO = #{empno,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.company.dao.pojo.Emp">
+		update a_emp
+		set
+		ENAME = #{ename,jdbcType=VARCHAR},
+		HIREDATE = #{hiredate,jdbcType=DATE},
+		SAL = #{sal,jdbcType=DOUBLE}
+		where EMPNO = #{empno,jdbcType=INTEGER}
+	</update>
+</mapper>

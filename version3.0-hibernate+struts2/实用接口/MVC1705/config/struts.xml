@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="struts2_action" namespace="/" extends="struts-default" >
+		<global-results>
+			<result name="error" type="redirect">/error.jsp</result>
+		</global-results>
+	</package>
+	
+	<include file="struts2model/router.xml"></include>
+	<include file="struts2model/emp.xml"></include>
+	
+</struts>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

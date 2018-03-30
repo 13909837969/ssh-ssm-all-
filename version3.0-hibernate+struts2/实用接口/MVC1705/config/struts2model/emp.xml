@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="emp_model" namespace="/" extends="struts-default">
+		<global-results>
+			<result name="error" type="redirect">/error.jsp</result>
+		</global-results>
+		
+		<!-- findAll  findById  findByName -->
+		<action name="emp_find_*" class="com.company.action.EmpAction"
+			method="{1}">
+			<result name="success" type="dispatcher">/WEB-INF/views/emp_findAll.jsp
+			</result>
+			<result name="update" type="dispatcher">/WEB-INF/views/emp_update.jsp
+			</result>
+		</action>
+		
+		<!-- save delete update -->
+		<action name="emp_*" class="com.company.action.EmpAction"
+			method="{1}">
+			<result name="success" type="redirectAction">emp_find_findAll</result>
+			
+		</action>
+		
+
+	</package>
+
+
+</struts>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

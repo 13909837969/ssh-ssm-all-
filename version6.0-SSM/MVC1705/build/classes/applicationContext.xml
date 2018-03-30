@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+	
+	<context:component-scan base-package="com.company"></context:component-scan>
+
+
+	<!-- SpringMVC配置 -->
+
+	<mvc:annotation-driven/>
+	<mvc:default-servlet-handler/>
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="order" value="1"></property>
+		<property name="mediaTypes">
+			<map>
+				<entry key="json" value="application/json"></entry>
+			</map>
+		</property>
+		<property name="defaultViews">
+			<bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"></bean>
+		</property>
+	</bean>
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+
+	<!-- MyBatis配置 -->
+	<context:property-placeholder location="classpath:c3p0db.properties"/>
+	
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${connection.driverClass}"></property>
+		<property name="jdbcUrl" value="${connection.url}"></property>
+		<property name="user" value="${connection.username}"></property>
+		<property name="password" value="${connection.password}"></property>
+		<property name="acquireIncrement" value="${c3p0.acquire_increment}"></property>
+		<property name="minPoolSize" value="${c3p0.min_size}"></property>
+		<property name="maxPoolSize" value="${c3p0.max_size}"></property>
+		<property name="idleConnectionTestPeriod" value="${c3p0.idle_test_period}"></property>
+		<property name="checkoutTimeout" value="${c3p0.timeout}"></property>
+		<property name="maxStatements" value="${c3p0.max_statements}"></property>
+	</bean>
+	
+	<bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.company.dao.mapper"></property>
+		<property name="sqlSessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+
+	<!-- Spring 事务的配置 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+</beans>
